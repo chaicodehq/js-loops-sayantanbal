@@ -30,5 +30,38 @@
  *   // => { items: [], totalBill: 0 }
  */
 export function sabziMandiBill(shoppingList, priceList) {
-  // Your code here
+  // Validation
+  if (
+    !Array.isArray(shoppingList) ||
+    !priceList ||
+    typeof priceList !== "object"
+  ) {
+    return { items: [], totalBill: 0 };
+  }
+
+  const items = [];
+  let totalBill = 0;
+
+  // Use for...of loop
+  for (const item of shoppingList) {
+    const { name, qty } = item;
+
+    // Check if sabzi is available in priceList
+    if (priceList[name] === undefined) {
+      continue; // Not available in mandi
+    }
+
+    const price = priceList[name];
+
+    // Check if price is too expensive (> 80)
+    if (price > 80) {
+      continue; // Too expensive
+    }
+
+    const cost = price * qty;
+    items.push({ name, qty, cost });
+    totalBill += cost;
+  }
+
+  return { items, totalBill };
 }

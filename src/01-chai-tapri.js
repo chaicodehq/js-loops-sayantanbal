@@ -27,5 +27,29 @@
  *   // => { totalChai: 0, totalRevenue: 0 }
  */
 export function chaiTapriRevenue(customers) {
-  // Your code here
+  // Validation
+  if (
+    typeof customers !== "number" ||
+    customers <= 0 ||
+    !Number.isInteger(customers)
+  ) {
+    return { totalChai: 0, totalRevenue: 0 };
+  }
+
+  let totalRevenue = 0;
+
+  for (let i = 1; i <= customers; i++) {
+    if (i % 3 === 0) {
+      // Every 3rd customer gets Adrak Chai
+      totalRevenue += 15;
+    } else {
+      // Others get Cutting Chai
+      totalRevenue += 10;
+    }
+  }
+
+  return {
+    totalChai: customers,
+    totalRevenue: totalRevenue,
+  };
 }
